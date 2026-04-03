@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hope4Hope – Node</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #ffffff;
+      color: #2c2c2c;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    a {
+      text-decoration: none;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    a:hover {
+      color: #000;
+    }
+
+    h1 {
+      margin-top: 1rem;
+      font-size: 2rem;
+    }
+
+    p {
+      line-height: 1.6;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html">← Back to Network</a>
+    <h1 id="title"></h1>
+    <p id="content"></p>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    const data = {
+      "hope-collective": {
+        title: "Hope as Collective",
+        content: "Hope emerges through shared experience, community, and solidarity."
+      },
+      "hope-resistance": {
+        title: "Hope as Resistance",
+        content: "Hope becomes a force that drives activism, protest, and agency."
+      },
+      "hope-poison": {
+        title: "Hope as Poison",
+        content: "Hope can mislead, creating delusion, danger, and ambiguity."
+      },
+      "hope-transformation": {
+        title: "Hope as Transformation",
+        content: "Hope enables change, evolution, and ongoing processes."
+      },
+      "hope-fragility": {
+        title: "Hope as Fragility",
+        content: "Hope exists within vulnerability, uncertainty, and resilience."
+      },
+
+      "community": {
+        title: "Community",
+        content: "Shared spaces and relationships that shape collective hope."
+      },
+      "emotion": {
+        title: "Emotion",
+        content: "Hope as a deeply felt emotional experience."
+      },
+      "solidarity": {
+        title: "Solidarity",
+        content: "Standing together in shared belief and purpose."
+      },
+
+      "activism": {
+        title: "Activism",
+        content: "Action driven by hope for change."
+      },
+      "protest": {
+        title: "Protest",
+        content: "Visible resistance rooted in hopeful futures."
+      },
+      "agency": {
+        title: "Agency",
+        content: "The power to act and shape outcomes."
+      },
+
+      "delusion": {
+        title: "Delusion",
+        content: "Hope that distorts reality or avoids truth."
+      },
+      "danger": {
+        title: "Danger",
+        content: "When hope leads to risky or harmful outcomes."
+      },
+      "ambiguity": {
+        title: "Ambiguity",
+        content: "The unclear and unstable nature of hope."
+      },
+
+      "change": {
+        title: "Change",
+        content: "Hope as a driver of transformation."
+      },
+      "evolution": {
+        title: "Evolution",
+        content: "Gradual development shaped by hopeful thinking."
+      },
+      "process": {
+        title: "Process",
+        content: "Hope unfolding over time."
+      },
+
+      "vulnerability": {
+        title: "Vulnerability",
+        content: "Hope requires openness and risk."
+      },
+      "uncertainty": {
+        title: "Uncertainty",
+        content: "Hope exists without guarantees."
+      },
+      "resilience": {
+        title: "Resilience",
+        content: "The ability to sustain hope despite challenges."
+      }
+    };
+
+    const node = data[id];
+
+    if (node) {
+      document.getElementById("title").textContent = node.title;
+      document.getElementById("content").textContent = node.content;
+    } else {
+      document.getElementById("title").textContent = "Not Found";
+      document.getElementById("content").textContent = "This topic does not exist.";
+    }
+  </script>
+</body>
+</html>
