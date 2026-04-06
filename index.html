@@ -99,6 +99,12 @@
             filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
         }
 
+        .node-label {
+            pointer-events: none;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            word-wrap: break-word;
+        }
+
         .link {
             stroke: #d0d0d0;
             stroke-width: 1.5px;
@@ -364,6 +370,17 @@
             .attr("class", "node-circle")
             .attr("r", d => d.type === "main" ? 30 : 20)
             .attr("fill", d => d.color);
+
+        nodeGroup.append("text")
+            .attr("class", "node-label")
+            .attr("text-anchor", "middle")
+            .attr("dy", "0.3em")
+            .attr("pointer-events", "none")
+            .style("font-size", d => d.type === "main" ? "11px" : "9px")
+            .style("font-weight", d => d.type === "main" ? "600" : "500")
+            .style("fill", "white")
+            .style("line-height", "1.2")
+            .text(d => d.label);
 
         const simulation = d3.forceSimulation(nodes)
             .force("link", d3.forceLink(links).id(d => d.id).distance(70).strength(0.8))
