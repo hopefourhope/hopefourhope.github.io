@@ -219,7 +219,7 @@
         const works = [
             {
                 id: "work-1",
-                title: "Work Title 1L  E   F  T | F  E  L   T",
+                title: "L  E   F  T | F  E  L   T",
                 artist: "Khadisha Dabayeva",
                 description: "Mixed-media installation"
             },
@@ -318,7 +318,7 @@
         const grid = document.getElementById("works-grid");
         works.forEach(work => {
             const card = document.createElement("a");
-            card.href = `${work.id}.html`;
+            card.href = `work_descriptions/${work.id}.html`;
             card.className = "work-card";
             card.innerHTML = `
                 <h3>${work.title}</h3>
