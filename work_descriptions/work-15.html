@@ -150,23 +150,40 @@
         <a href="../works.html" class="back-link">← Back to Works</a>
 
         <h1>Hope is a Practice</h1>
-        <div class="artist"> Emilie Schmidt
-</div>
+        <div class="artist">Emilie Schmidt</div>
 
         <div class="description">
             <p>
                 In times of ecological collapse, political repression, and social fragmentation, dominant ideas of security are failing. Surveillance, policing, and individualised preparedness promise protection, yet often produce exclusion, fear, and isolation.
                 Drawing on queer-feminist and antifascist activist approaches, this work explores how future security is not given, but collectively made - through shared vulnerability, negotiation, and mutual support.
                 Here, hope appears as a fragile but powerful form of solidarity in the collapse - a constructive hope that does not deny the collapse, but acknowledges it as a present reality and responds to it through collective action.
-
             </p>
         </div>
 
         <div class="media">
-            <!-- Replace with actual media -->
-            <img src="../assets/work-1.jpg" alt="Work image">
+            <img src="../assets/work-15.jpg" alt="Work image">
+        </div>
+
+        <div class="modes-section">
+            <h2>Modes of Hope</h2>
+            <div class="mode-tags" id="mode-tags"></div>
         </div>
     </div>
+
+    <script src="../data.js"></script>
+    <script>
+        const workId = "work-15";
+        const modes = artistModes[workId] || [];
+        const container = document.getElementById("mode-tags");
+
+        modes.forEach(mode => {
+            const a = document.createElement("a");
+            a.href = `../node.html?id=${mode}`;
+            a.className = "mode-tag";
+            a.textContent = mode.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+            container.appendChild(a);
+        });
+    </script>
 
 </body>
 </html>
