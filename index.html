@@ -344,10 +344,11 @@
 
         const link = svg.append("g")
             .attr("class", "links")
-            .selectAll("line")
+            .selectAll("path")
             .data(links)
-            .join("line")
-            .attr("class", "link");
+            .join("path")
+            .attr("class", "link")
+            .attr("fill", "none");
 
         const nodeGroup = svg.append("g")
             .attr("class", "nodes")
@@ -462,11 +463,12 @@
                 d.x = Math.max(padding + nodeRadius, Math.min(width - padding - nodeRadius, d.x));
                 d.y = Math.max(headerHeight + nodeRadius + 10, Math.min(height - padding - nodeRadius, d.y));            });
 
-            link
-                .attr("x1", d => d.source.x)
-                .attr("y1", d => d.source.y)
-                .attr("x2", d => d.target.x)
-                .attr("y2", d => d.target.y);
+            link.attr("d", d => {
+                const dx = d.target.x - d.source.x;
+                const dy = d.target.y - d.source.y;
+                const dr = Math.sqrt(dx * dx + dy * dy) * 1.2;
+                return `M${d.source.x},${d.source.y}A${dr},${dr} 0 0,1 ${d.target.x},${d.target.y}`;
+            });
 
             nodeGroup
                 .attr("transform", d => `translate(${d.x},${d.y})`);
