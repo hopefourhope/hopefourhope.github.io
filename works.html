@@ -85,12 +85,13 @@
         }
 
         .work-card {
-            background: rgba(255, 255, 255, 0.3);
-            border: 2px solid #1a1a1a;
-            border-radius: 2px;
-            padding: 1.5rem;
+            background: transparent;
+            border: none;
+            border-top: 1px solid #1a1a1a;
+            border-radius: 0;
+            padding: 1.5rem 0;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: opacity 0.2s ease;
             text-decoration: none;
             color: inherit;
             display: flex;
@@ -98,10 +99,7 @@
         }
 
         .work-card:hover {
-            border-color: #1a1a1a;
-            box-shadow: 0 4px 12px rgba(26, 26, 26, 0.15);
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.5);
+            opacity: 0.5;
         }
 
         .work-card h3 {
