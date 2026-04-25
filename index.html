@@ -359,7 +359,7 @@
 
         nodeGroup.append("circle")
             .attr("class", "node-circle")
-            .attr("r", 45)
+            .attr("r", 30)
             .attr("fill", d => d.fillColor)
             .attr("stroke", d => d.strokeColor)
             .attr("stroke-width", d => d.type === "mode" ? 2 : 0);
@@ -462,7 +462,7 @@
 
         simulation.on("tick", () => {
             const padding = 50;
-            const nodeRadius = 35;
+            const nodeRadius = 30;
             const headerHeight = document.querySelector('.header').offsetHeight;
 
             nodes.forEach(d => {
