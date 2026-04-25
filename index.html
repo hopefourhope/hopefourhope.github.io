@@ -442,11 +442,11 @@
         simulation.on("tick", () => {
             const padding = 50;
             const nodeRadius = 30;
+            const headerHeight = document.querySelector('.header').offsetHeight;
 
             nodes.forEach(d => {
                 d.x = Math.max(padding + nodeRadius, Math.min(width - padding - nodeRadius, d.x));
-                d.y = Math.max(padding + nodeRadius, Math.min(height - padding - nodeRadius, d.y));
-            });
+                d.y = Math.max(headerHeight + nodeRadius + 10, Math.min(height - padding - nodeRadius, d.y));            });
 
             link
                 .attr("x1", d => d.source.x)
@@ -468,8 +468,9 @@
             function dragged(event, d) {
                 const padding = 50;
                 const nodeRadius = 30;
+                const headerHeight = document.querySelector('.header').offsetHeight;
                 d.fx = Math.max(padding + nodeRadius, Math.min(width - padding - nodeRadius, event.x));
-                d.fy = Math.max(padding + nodeRadius, Math.min(height - padding - nodeRadius, event.y));
+                d.fy = Math.max(headerHeight + nodeRadius + 10, Math.min(height - padding - nodeRadius, event.y));
             }
 
             function dragended(event, d) {
