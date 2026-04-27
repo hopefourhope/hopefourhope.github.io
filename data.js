@@ -1,18 +1,18 @@
 const artistModes = {
-    "work-1":  ["coping", "care", "force", "material", "memory", "passing-on", "persistence", "resistance", "dynamic", "collective-emotion", "fragility"],
-    "work-2":  ["attitude", "care", "compassion", "contradiction", "coping", "fragility", "memory", "resilience", "speculation", "strategy", "trust", "uncertainty", "wish"],
-    "work-3":  ["action", "agency", "material", "speculation", "strategy"],
+    "work-1":  ["coping", "care", "force", "material", "memory", "persistence", "resistance", "dynamic", "collective-emotion", "fragility"],
+    "work-2":  ["attitude", "care", "compassion", "contradiction", "coping", "fragility", "memory", "resilience", "strategy", "trust", "uncertainty", "wish"],
+    "work-3":  ["action", "agency", "material", "strategy"],
     "work-4":  ["action", "agency", "attitude", "force", "fragility", "freedom", "trust", "uncertainty", "utopia", "wish"],
     "work-5":  ["agency", "collective-emotion", "force", "momentum", "resistance", "strategy"],
-    "work-6":  ["action", "agency", "alternative", "resistance"],
-    "work-7":  ["absence-of-fear", "action", "agency", "collective-emotion", "dynamic", "emerging", "freedom", "momentum", "persistence", "resilience", "resistance", "self-organization", "uncertainty"],
+    "work-6":  ["action", "agency", "resistance"],
+    "work-7":  ["absence-of-fear", "action", "agency", "collective-emotion", "dynamic", "emerging", "freedom", "momentum", "persistence", "resilience", "resistance", "uncertainty"],
     "work-8":  ["contradiction", "embodiment", "fragility", "persistence", "resilience", "resistance", "tension"],
     "work-9":  ["contradiction", "persistence", "uncertainty"],
     "work-10": ["force", "momentum", "trust"],
-    "work-11": ["action", "agency", "care", "coping", "material", "persistence", "self-organization"],
-    "work-12": ["agency", "illusion", "persistence", "speculation", "uncertainty"],
-    "work-13": ["alternative", "collective-emotion", "embodiment", "freedom", "memory", "momentum", "resistance"],
-    "work-14": ["absence-of-fear", "action", "agency", "force", "horror", "illusion", "poison", "uncertainty", "wish"],
+    "work-11": ["action", "agency", "care", "coping", "material", "persistence"],
+    "work-12": ["agency", "illusion", "persistence", "uncertainty"],
+    "work-13": ["collective-emotion", "embodiment", "freedom", "memory", "momentum", "resistance"],
+    "work-14": ["absence-of-fear", "action", "agency", "force", "illusion", "uncertainty", "wish"],
 };
 
 const workMeta = {
