@@ -130,6 +130,7 @@
             font-family: 'aeonikmono-regular', monospace;
         }
 
+        /* ── Desktop info panel (unchanged) ── */
         .info-panel {
             position: fixed;
             bottom: 2rem;
@@ -194,12 +195,77 @@
             flex-shrink: 0;
         }
 
+        /* ── Mobile bottom sheet ── */
+        .bottom-sheet {
+            display: none; /* shown only on mobile via JS */
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1a1a1a;
+            color: #ffed00;
+            z-index: 300;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            padding: 1.2rem 1.5rem 2rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            font-family: 'aeonikmono-regular', monospace;
+        }
+
+        .bottom-sheet.open {
+            transform: translateY(0);
+        }
+
+        .bottom-sheet-handle {
+            width: 36px;
+            height: 4px;
+            background: rgba(255, 237, 0, 0.3);
+            border-radius: 2px;
+            margin: 0 auto 1rem;
+        }
+
+        .bottom-sheet h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            color: #ffed00;
+        }
+
+        .bottom-sheet p {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+            color: #ffed00;
+        }
+
+        .bottom-sheet-action {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-family: 'aeonikmono-regular', monospace;
+            color: #1a1a1a;
+            background: #ffed00;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* ── Mobile overrides ── */
         @media (max-width: 768px) {
             .header {
                 padding: 1.5rem;
             }
             .header h1 {
                 font-size: 1.5rem;
+                margin-bottom: 0; /* no subtitle visible */
+            }
+            /* hide subtitle on mobile */
+            .header p {
+                display: none;
             }
             .nav-links {
                 top: 1.5rem;
@@ -209,10 +275,13 @@
             .nav-links a {
                 font-size: 0.85rem;
             }
+            /* hide desktop info panel on mobile */
             .info-panel {
-                bottom: 1.5rem;
-                left: 1.5rem;
-                max-width: calc(100vw - 3rem);
+                display: none;
+            }
+            /* show bottom sheet on mobile */
+            .bottom-sheet {
+                display: block;
             }
             .legend {
                 bottom: 1.5rem;
@@ -227,9 +296,6 @@
             .header h1 {
                 font-size: 1.25rem;
             }
-            .header p {
-                font-size: 0.85rem;
-            }
             .nav-links {
                 top: 1rem;
                 right: 1rem;
@@ -237,13 +303,6 @@
             }
             .nav-links a {
                 font-size: 0.75rem;
-            }
-            .info-panel {
-                bottom: 1rem;
-                left: 1rem;
-                padding: 1rem;
-                max-width: calc(100vw - 2rem);
-                font-size: 0.85rem;
             }
             .legend {
                 display: none;
@@ -267,9 +326,18 @@
         <svg id="graph"></svg>
     </div>
 
+    <!-- Desktop info panel (unchanged) -->
     <div class="info-panel">
         <h3 id="info-title">Hope4Hope Network</h3>
         <p id="info-text">Click on any node to explore. Drag to move around the network.</p>
+    </div>
+
+    <!-- Mobile bottom sheet -->
+    <div class="bottom-sheet" id="bottom-sheet">
+        <div class="bottom-sheet-handle"></div>
+        <h3 id="sheet-title">Hope4Hope Network</h3>
+        <p id="sheet-text">Tap a node to explore. Tap again to open.</p>
+        <a class="bottom-sheet-action" id="sheet-link" href="#" style="display:none;">Open →</a>
     </div>
 
     <div class="legend">
@@ -287,19 +355,18 @@
 
     <script src="data.js"></script>
     <script>
+        const isMobile = () => window.innerWidth <= 768;
+
         // Generate nodes from works and modes
         let nodes = [];
 
-        // Add work nodes
         Object.entries(workMeta).forEach(([workId, meta]) => {
-            if (meta.title !== "Work Title 16") {  // Skip placeholder
-                const title = meta.title.length > 20 ? meta.title.substring(0, 17) + "..." : meta.title;
+            if (meta.title !== "Work Title 16") {
                 nodes.push({
                     id: workId,
                     label: meta.title,
                     artist: meta.artist,
                     type: "work",
-                    // filled black
                     fillColor: "#1a1a1a",
                     strokeColor: "none",
                     textColor: "#ffed00"
@@ -307,7 +374,6 @@
             }
         });
 
-        // Calculate degree (connection count) for each mode
         const modeDegree = {};
         Object.values(artistModes).forEach(modes => {
             modes.forEach(mode => {
@@ -315,21 +381,18 @@
             });
         });
 
-        // Add mode nodes — hollow (outline only)
         Object.entries(modeDegree).forEach(([modeId, degree]) => {
             nodes.push({
                 id: modeId,
                 label: modeId.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
                 type: "mode",
                 degree: degree,
-                // hollow
                 fillColor: "#ffed00",
                 strokeColor: "#1a1a1a",
                 textColor: "#1a1a1a"
             });
         });
 
-        // Generate links from artistModes mapping
         const links = [];
         Object.entries(artistModes).forEach(([workId, modes]) => {
             modes.forEach(mode => {
@@ -351,6 +414,11 @@
             .attr("class", "link")
             .attr("fill", "none");
 
+        // Node radius: smaller on mobile
+        const nodeRadius = () => isMobile() ? 28 : 45;
+        const nodeFontSize = () => isMobile() ? "7px" : "9px";
+        const collideRadius = () => isMobile() ? 33 : 52;
+
         const nodeGroup = svg.append("g")
             .attr("class", "nodes")
             .selectAll("g")
@@ -359,18 +427,18 @@
             .attr("class", d => `node-group node-${d.type}`)
             .call(drag());
 
-        nodeGroup.append("circle")
+        const nodeCircles = nodeGroup.append("circle")
             .attr("class", "node-circle")
-            .attr("r", 45)
+            .attr("r", nodeRadius())
             .attr("fill", d => d.fillColor)
             .attr("stroke", d => d.strokeColor)
             .attr("stroke-width", d => d.type === "mode" ? 2 : 0);
 
-        nodeGroup.append("text")
+        const nodeLabels = nodeGroup.append("text")
             .attr("class", "node-label")
             .attr("text-anchor", "middle")
             .attr("pointer-events", "none")
-            .style("font-size", "9px")
+            .style("font-size", nodeFontSize())
             .style("font-weight", "500")
             .style("fill", d => d.textColor)
             .each(function(d) {
@@ -401,11 +469,11 @@
             .force("link", d3.forceLink(links).id(d => d.id).distance(100).strength(0.6))
             .force("charge", d3.forceManyBody().strength(-800))
             .force("center", d3.forceCenter(width / 2, height / 2))
-            .force("collide", d3.forceCollide().radius(52).iterations(3))
+            .force("collide", d3.forceCollide().radius(collideRadius()).iterations(3))
             .force("x", d3.forceX(width / 2).strength(0.01))
             .force("y", d3.forceY(height / 2).strength(0.01));
 
-        // Adjacency map for neighbor highlighting
+        // Adjacency map
         const neighbors = {};
         nodes.forEach(n => neighbors[n.id] = new Set());
         links.forEach(l => {
@@ -415,19 +483,15 @@
             neighbors[targetId].add(sourceId);
         });
 
-        nodeGroup.on("mouseenter", function(event, d) {
-            const tooltip = document.getElementById("tooltip");
-            tooltip.textContent = d.label + (d.artist ? ` by ${d.artist}` : "");
-            tooltip.style.display = "block";
-            tooltip.style.left = event.pageX + 10 + "px";
-            tooltip.style.top = event.pageY + 10 + "px";
+        // Mobile tap state: track which node is "highlighted" (first tap)
+        let mobileHighlighted = null;
 
-            document.getElementById("info-title").textContent = d.label;
-            document.getElementById("info-text").textContent =
-                d.type === "work"
-                    ? `${d.artist} — ${neighbors[d.id].size} connected modes`
-                    : `${d.degree} works engage with this mode`;
+        const bottomSheet = document.getElementById("bottom-sheet");
+        const sheetTitle = document.getElementById("sheet-title");
+        const sheetText = document.getElementById("sheet-text");
+        const sheetLink = document.getElementById("sheet-link");
 
+        function highlightNode(d) {
             const neighborSet = neighbors[d.id];
             nodeGroup.style("opacity", n => (n.id === d.id || neighborSet.has(n.id)) ? 1 : 0.15);
             link.style("opacity", l => {
@@ -435,34 +499,94 @@
                 const targetId = typeof l.target === "string" ? l.target : l.target.id;
                 return (sourceId === d.id || targetId === d.id) ? 0.5 : 0.05;
             });
-        })
-        .on("mouseleave", function() {
-            document.getElementById("tooltip").style.display = "none";
+        }
+
+        function resetHighlight() {
             nodeGroup.style("opacity", 1);
             link.style("opacity", 0.2);
-        })
-        .on("mousemove", function(event) {
-            const tooltip = document.getElementById("tooltip");
-            tooltip.style.left = event.pageX + 10 + "px";
-            tooltip.style.top = event.pageY + 10 + "px";
-        })
-        .on("click", function(event, d) {
-            event.stopPropagation();
-            if (d.type === "work") {
-                window.location.href = `work_descriptions/${d.id}.html`;
-            } else {
-                window.location.href = `content/${d.id}.html`;
-            }
+        }
+
+        function getNodeHref(d) {
+            return d.type === "work"
+                ? `work_descriptions/${d.id}.html`
+                : `content/${d.id}.html`;
+        }
+
+        // Desktop: hover + click
+        nodeGroup
+            .on("mouseenter", function(event, d) {
+                if (isMobile()) return;
+                const tooltip = document.getElementById("tooltip");
+                tooltip.textContent = d.label + (d.artist ? ` by ${d.artist}` : "");
+                tooltip.style.display = "block";
+                tooltip.style.left = event.pageX + 10 + "px";
+                tooltip.style.top = event.pageY + 10 + "px";
+
+                document.getElementById("info-title").textContent = d.label;
+                document.getElementById("info-text").textContent =
+                    d.type === "work"
+                        ? `${d.artist} — ${neighbors[d.id].size} connected modes`
+                        : `${d.degree} works engage with this mode`;
+
+                highlightNode(d);
+            })
+            .on("mouseleave", function() {
+                if (isMobile()) return;
+                document.getElementById("tooltip").style.display = "none";
+                resetHighlight();
+            })
+            .on("mousemove", function(event) {
+                if (isMobile()) return;
+                const tooltip = document.getElementById("tooltip");
+                tooltip.style.left = event.pageX + 10 + "px";
+                tooltip.style.top = event.pageY + 10 + "px";
+            })
+            .on("click", function(event, d) {
+                event.stopPropagation();
+                if (isMobile()) {
+                    // First tap: highlight + show sheet
+                    if (mobileHighlighted !== d.id) {
+                        mobileHighlighted = d.id;
+                        highlightNode(d);
+
+                        // Update bottom sheet
+                        sheetTitle.textContent = d.label;
+                        sheetText.textContent = d.type === "work"
+                            ? `${d.artist} — ${neighbors[d.id].size} connected modes`
+                            : `${d.degree} works engage with this mode`;
+                        sheetLink.href = getNodeHref(d);
+                        sheetLink.style.display = "inline-block";
+                        bottomSheet.classList.add("open");
+                    } else {
+                        // Second tap: navigate
+                        window.location.href = getNodeHref(d);
+                    }
+                } else {
+                    window.location.href = getNodeHref(d);
+                }
+            });
+
+        // Tap on background dismisses sheet and resets
+        document.getElementById("graph-container").addEventListener("click", function(event) {
+            if (!isMobile()) return;
+            if (event.target.closest(".node-group")) return;
+            mobileHighlighted = null;
+            resetHighlight();
+            bottomSheet.classList.remove("open");
+            sheetLink.style.display = "none";
+            sheetTitle.textContent = "Hope4Hope Network";
+            sheetText.textContent = "Tap a node to explore. Tap again to open.";
         });
 
         simulation.on("tick", () => {
             const padding = 50;
-            const nodeRadius = 30;
+            const r = nodeRadius();
             const headerHeight = document.querySelector('.header').offsetHeight;
 
             nodes.forEach(d => {
-                d.x = Math.max(padding + nodeRadius, Math.min(width - padding - nodeRadius, d.x));
-                d.y = Math.max(headerHeight + nodeRadius + 10, Math.min(height - padding - nodeRadius, d.y));            });
+                d.x = Math.max(padding + r, Math.min(width - padding - r, d.x));
+                d.y = Math.max(headerHeight + r + 10, Math.min(height - padding - r, d.y));
+            });
 
             link.attr("d", d => {
                 const dx = d.target.x - d.source.x;
@@ -471,8 +595,7 @@
                 return `M${d.source.x},${d.source.y}A${dr},${dr} 0 0,1 ${d.target.x},${d.target.y}`;
             });
 
-            nodeGroup
-                .attr("transform", d => `translate(${d.x},${d.y})`);
+            nodeGroup.attr("transform", d => `translate(${d.x},${d.y})`);
         });
 
         function drag() {
@@ -484,10 +607,10 @@
 
             function dragged(event, d) {
                 const padding = 50;
-                const nodeRadius = 30;
+                const r = nodeRadius();
                 const headerHeight = document.querySelector('.header').offsetHeight;
-                d.fx = Math.max(padding + nodeRadius, Math.min(width - padding - nodeRadius, event.x));
-                d.fy = Math.max(headerHeight + nodeRadius + 10, Math.min(height - padding - nodeRadius, event.y));
+                d.fx = Math.max(padding + r, Math.min(width - padding - r, event.x));
+                d.fy = Math.max(headerHeight + r + 10, Math.min(height - padding - r, event.y));
             }
 
             function dragended(event, d) {
@@ -508,8 +631,13 @@
 
             svg.attr("width", width).attr("height", height);
 
+            // Update node sizes on resize (desktop <-> mobile switch)
+            nodeCircles.attr("r", nodeRadius());
+            nodeLabels.style("font-size", nodeFontSize());
+
             simulation
                 .force("center", d3.forceCenter(width / 2, height / 2))
+                .force("collide", d3.forceCollide().radius(collideRadius()).iterations(3))
                 .force("x", d3.forceX(width / 2).strength(0.01))
                 .force("y", d3.forceY(height / 2).strength(0.01))
                 .alpha(0.3)
