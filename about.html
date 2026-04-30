@@ -131,6 +131,14 @@
             font-size: 1rem;
             line-height: 1.85;
             color: #1a1a1a;
+            display: flex;
+            gap: 3rem;
+            align-items: flex-start;
+        }
+
+        .description-text {
+            flex: 1;
+            min-width: 0;
         }
 
         .description p {
@@ -138,6 +146,33 @@
         }
 
         .description p:last-child {
+            margin-bottom: 0;
+        }
+
+        .description-info {
+            flex-shrink: 0;
+            width: 200px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #1a1a1a;
+        }
+
+        .description-info h3 {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 0.5rem;
+            margin-top: 1.2rem;
+        }
+
+        .description-info h3:first-child {
+            margin-top: 0;
+        }
+
+        .description-info p {
+            font-size: 0.85rem;
+            line-height: 1.6;
             margin-bottom: 0;
         }
 
@@ -222,6 +257,12 @@
 
             .description {
                 padding: 1.5rem 0;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .description-info {
+                width: 100%;
             }
         }
 
@@ -266,6 +307,12 @@
 
             .description {
                 padding: 1rem 0;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .description-info {
+                width: 100%;
             }
 
             p {
@@ -305,11 +352,30 @@
         
         <main>
             <section class="description">
-                <p>As global crises multiply and exhaustion becomes chronic, the very notion of hope feels suspiciously kitschy, yet dangerously all the more desirable. While despair tempts us with a certain clarity, the challenge of our time lies in rediscovering the potential of hope as a driving force for change.</p>
-                
-                <p>In the exhibition Hope4Hope, MA students from the Department of Cross-Disciplinary Strategies at the University of Applied Arts Vienna undertake a search for traces of hope across various fields, exploring the conditions under which hope manifests. Undermining the rigid logic of delimited research areas, their investigations combine a wide range of artistic strategies, scientific methods, and technological tools to reflect the richness and ambiguity of different modes of hoping.</p>
-                
-                <p>Interweaving these different methodologies, Hope4Hope generates a manifold map: hoping as collective emotion, hoping as poison, hoping as an act of resistance. Together, the works materialise a constellation of diverse perspectives, depicting "hope for hope" in a collective brainstorm.</p>
+                <div class="description-text">
+                    <p>As global crises multiply and exhaustion becomes chronic, the very notion of hope feels suspiciously kitschy, yet dangerously all the more desirable. While despair tempts us with a certain clarity, the challenge of our time lies in rediscovering the potential of hope as a driving force for change.</p>
+
+                    <p>In the exhibition Hope4Hope, MA students from the Department of Cross-Disciplinary Strategies at the University of Applied Arts Vienna undertake a search for traces of hope across various fields, exploring the conditions under which hope manifests. Undermining the rigid logic of delimited research areas, their investigations combine a wide range of artistic strategies, scientific methods, and technological tools to reflect the richness and ambiguity of different modes of hoping.</p>
+
+                    <p>Interweaving these different methodologies, Hope4Hope generates a manifold map: hoping as collective emotion, hoping as poison, hoping as an act of resistance. Together, the works materialise a constellation of diverse perspectives, depicting "hope for hope" in a collective brainstorm.</p>
+                </div>
+                <div class="description-info">
+                    <h3>Opening Hours</h3>
+                    <p>
+                        Fri, 01.05. &nbsp;16:00 – 18:30<br>
+                        Sat, 02.05. &nbsp;15:30 – 19:00<br>
+                        Sun, 03.05. 16:30 – 21:30<br>
+                        Fri, 08.05. &nbsp;16:00 – 19:30<br>
+                        Sat, 09.05. &nbsp;15:30 – 19:00<br>
+                        Sun, 10.05. 17:00 – 22:00
+                    </p>
+                    <h3>Location</h3>
+                    <p>
+                        Forum Frohner<br>
+                        Minoritenplatz 4-5<br>
+                        3500 Krems
+                    </p>
+                </div>
             </section>
             
             <section class="credits">
