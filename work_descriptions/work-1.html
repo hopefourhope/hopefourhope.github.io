@@ -154,6 +154,27 @@
             border-color: #1a1a1a;
         }
 
+        .photos-section {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #1a1a1a;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+
+        .photos-section img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .photos-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* 4x4 Image Grid */
         .image-grid-section {
             margin-top: 4rem;
@@ -286,6 +307,15 @@
             <a class="mode-link" href="../content/resiliance.html">Hope as Resilience</a>
             <a class="mode-link" href="../content/resistance.html">Hope as Resistance</a>
             <!-- add or remove mode links as needed -->
+        </div>
+
+        <div class="photos-section">
+            <img src="../images/khadisha1_1.jpeg" alt="L E F T | F E L T">
+            <img src="../images/khadisha1_2.jpeg" alt="L E F T | F E L T">
+            <img src="../images/khadisha1_3.jpeg" alt="L E F T | F E L T">
+            <img src="../images/khadisha2.jpg" alt="L E F T | F E L T">
+            <img src="../images/khadisha2_1.jpg" alt="L E F T | F E L T">
+            <img src="../images/khadisha2_2.jpg" alt="L E F T | F E L T">
         </div>
 
         <!-- <div class="image-grid-section">
