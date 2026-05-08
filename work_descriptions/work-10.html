@@ -198,15 +198,35 @@
             border: 1px dashed #1a1a1a;
         }
 
-        .image-section {
+        .photos {
+            display: flex;
+            gap: 0.5rem;
+            align-items: flex-start;
             margin-top: 4rem;
             padding-top: 2rem;
             border-top: 1px solid #1a1a1a;
         }
 
-        .image-section img {
+        .photo-landscape {
+            flex: 9;
+            min-width: 0;
+        }
+
+        .photo-portrait {
+            flex: 4;
+            min-width: 0;
+        }
+
+        .photos img {
             width: 100%;
+            height: auto;
             display: block;
+        }
+
+        @media (max-width: 600px) {
+            .photos {
+                flex-direction: column;
+            }
         }
 
         @media (max-width: 768px) {
@@ -292,9 +312,14 @@
             <a class="mode-link" href="../content/trust.html">Hope as Trust</a>
         </div>
 
-        <!-- <div class="image-section">
-            <img src="../images/Bildschirmfoto 2026-04-08 um 16.00.29.png" alt="Facing It – Marshall Paul">
-        </div> -->
+        <div class="photos">
+            <div class="photo-landscape">
+                <img src="../images/laura_adam_1.JPG" alt="Rocks, I mean; - Stars">
+            </div>
+            <div class="photo-portrait">
+                <img src="../images/laura_adam_2.JPG" alt="Rocks, I mean; - Stars">
+            </div>
+        </div>
 
     </div>
 
