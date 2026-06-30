@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23ffed00'/></svg>">
+    <title>Hope4Hope – Rocks, I mean; - Stars</title>
+    <style>
+        @font-face {
+            font-family: 'aeonikmono-regular';
+            src: url('../fonts/AeonikMono-Regular.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'aeonikmono-regular', monospace;
+            background-color: #ffed00;
+            color: #1a1a1a;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        .nav-links {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 101;
+            display: flex;
+            gap: 2rem;
+        
+            transition: opacity 0.3s ease, visibility 0.3s ease;}
+
+        .nav-links a {
+            font-size: 0.95rem;
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 2px;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.5;
+            border-bottom-color: #1a1a1a;
+        }
+
+        .nav-links a.active {
+            opacity: 0.7;
+            border-bottom-color: #1a1a1a;
+        }
+
+        .nav-links.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem 4rem 2rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            font-size: 0.9rem;
+            color: #1a1a1a;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: opacity 0.2s ease;
+        }
+
+        .back-link:hover {
+            opacity: 0.5;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.25rem;
+            line-height: 1.2;
+        }
+
+        .artist-name {
+            font-size: 1rem;
+            color: #555555;
+            font-style: italic;
+            margin-bottom: 0.25rem;
+        }
+
+        .work-type {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #555555;
+            margin-bottom: 2rem;
+        }
+
+        .description {
+            font-size: 1rem;
+            line-height: 1.85;
+            color: #1a1a1a;
+            text-align: justify;
+            border-top: 1px solid #1a1a1a;
+            padding-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .description p {
+            margin-bottom: 1.2rem;
+        }
+
+        .description p:last-child {
+            margin-bottom: 0;
+        }
+
+        .linked-modes {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .linked-modes h2 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #555555;
+            margin-bottom: 1.2rem;
+            font-weight: 500;
+        }
+
+        .mode-link {
+            display: inline-block;
+            margin-right: 0.75rem;
+            margin-bottom: 0.75rem;
+            text-decoration: none;
+            color: #1a1a1a;
+            font-size: 0.9rem;
+            border: 1px solid #1a1a1a;
+            padding: 0.3rem 0.75rem;
+            transition: all 0.2s ease;
+        }
+
+        .mode-link:hover {
+            opacity: 0.5;
+            border-color: #1a1a1a;
+        }
+
+        /* 4x4 Image Grid */
+        .image-grid-section {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .image-grid-section h2 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #555555;
+            margin-bottom: 1.2rem;
+            font-weight: 500;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+
+        .image-grid-item {
+            aspect-ratio: 1 / 1;
+            background-color: rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+        }
+
+        .image-grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-grid-item img:hover {
+            opacity: 0.85;
+        }
+
+        .image-grid-item.empty {
+            border: 1px dashed #1a1a1a;
+        }
+
+        .photos {
+            display: flex;
+            gap: 0.5rem;
+            align-items: flex-start;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .photo-landscape {
+            flex: 9;
+            min-width: 0;
+        }
+
+        .photo-portrait {
+            flex: 4;
+            min-width: 0;
+        }
+
+        .photos img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .photos {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                top: 1.5rem;
+                right: 1.5rem;
+                gap: 1rem;
+            
+            transition: opacity 0.3s ease, visibility 0.3s ease;}
+
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+
+            .container {
+                padding: 2rem 1.5rem 3rem 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .image-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                top: 1rem;
+                right: 1rem;
+                gap: 0.5rem;
+            
+            transition: opacity 0.3s ease, visibility 0.3s ease;}
+
+            .nav-links a {
+                font-size: 0.75rem;
+            }
+
+            .container {
+                padding: 1.5rem 1rem 2rem 1rem;
+            }
+
+            h1 {
+                font-size: 1.25rem;
+            }
+
+            .image-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav-links">
+        <a href="../index.html">Network</a>
+        <a href="../about.html">About</a>
+        <a href="../works.html" class="active">Work Descriptions</a>
+    </div>
+
+    <div class="container">
+
+        <a class="back-link" href="../works.html">← Back to Works</a>
+
+        <h1>Rocks, I mean; - <em>Stars</em></h1>
+        <p class="artist-name">by Ádám Salomvári and Laura Oyuela</p>
+        <p class="work-type">Performance</p>
+
+        <div class="description">
+            <p>
+                … is a sonic and spatial performance departing from text, soundscapes, spoken words and its physical surrounding. Here, hope is not mere optimism, but a process of relations that must be enacted within each other. The piece works with analogies between black holes and human beings through low frequencies, orbital motion, and stretched time, shaping a field that gathers bodies into one another. The project investigates how perceptual, cognitive, and affective dynamics shape the experience of artistic performance in relation to contemporary conditions of subjectivity, particularly isolation and hyperproductivity.
+            </p>
+            <p>
+                A fragment of the soundscape may be heard in the space throughout the exhibition.
+            </p>
+        </div>
+
+        <div class="photos">
+            <div class="photo-landscape">
+                <img src="../images/laura_adam_1.JPG" alt="Rocks, I mean; - Stars">
+            </div>
+            <div class="photo-portrait">
+                <img src="../images/laura_adam_2.JPG" alt="Rocks, I mean; - Stars">
+            </div>
+        </div>
+
+        <div class="linked-modes">
+            <h2>Modes of Hope</h2>
+            <a class="mode-link" href="../content/force.html">Hope as Absence of Force</a>
+            <a class="mode-link" href="../content/persistence.html">Hope as Persistence</a>
+            <a class="mode-link" href="../content/trust.html">Hope as Trust</a>
+        </div>
+
+    </div>
+
+    <script src="../hide-on-scroll.js"></script>
+</body>
+</html>
