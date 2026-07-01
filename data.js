@@ -27,7 +27,7 @@ const workMeta = {
     "work-6":  { title: "How to resist tech-bros", artist: "Benjamin Palme", file: "work_descriptions/work-6.html" },
     "work-7":  { title: "The Black Box of Hope", artist: "Subham Manandhar", file: "work_descriptions/work-7.html" },
     "work-8":  { title: "Resignation and the Refusal to Resign", artist: "Sophie Hamann", file: "work_descriptions/work-8.html" },
-    "work-9":  { title: "Tentative d'épuisement", artist: "Marlene Lethmayer", file: "work_descriptions/work-9.html" },
+    "work-9":  { title: "Exhausting a place", artist: "Marlene Lethmayer", file: "work_descriptions/work-9.html" },
     "work-10": { title: "Rocks, I mean; - Stars", artist: "Ádám Salomvári and Laura Oyuela", file: "work_descriptions/work-10.html" },
     "work-11": { title: "Inventory of Survival", artist: "Alessia Meyer", file: "work_descriptions/work-11.html" },
     "work-12": { title: "unknown return to player", artist: "Lea Kristin Würtenberger", file: "work_descriptions/work-12.html" },
