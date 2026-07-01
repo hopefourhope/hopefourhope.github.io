@@ -14,7 +14,9 @@ const artistModes = {
     "work-13": ["collective-emotion", "embodiment", "freedom", "memory", "momentum", "resistance"],
     "work-14": ["absence-of-fear", "action", "agency", "force", "illusion", "uncertainty", "wish"],
     "work-15": ["persistence", "trust", "collective-emotion", "care", "action", "resistance", "embodiment", "resilience", "strategy", "fragility"],
+    "work-16": ["coping", "memory", "fragility", "illusion"], 
 };
+
 
 const workMeta = {
     "work-1":  { title: "L  E   F  T | F  E  L   T", artist: "Khadisha Dabayeva", file: "work_descriptions/work-1.html" },
@@ -32,4 +34,5 @@ const workMeta = {
     "work-13": { title: "If My Land Were Flat, None of This Would Have Happened", artist: "Sara Karimi", file: "work_descriptions/work-13.html" },
     "work-14": { title: "SHELLS", artist: "Charlie Spies", file: "work_descriptions/work-14.html" },
     "work-15": { title: "hope is a practice", artist: "Emilie Schmidt", file: "work_descriptions/work-15.html" },
+    "work-16": { title: "A Garden of Hope", artist: "Maya Kornfeld", file: "work_descriptions/work-16.html" },
 };
