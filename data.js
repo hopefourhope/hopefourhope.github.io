@@ -13,6 +13,7 @@ const artistModes = {
     "work-12": ["agency", "illusion", "persistence", "uncertainty"],
     "work-13": ["collective-emotion", "embodiment", "freedom", "memory", "momentum", "resistance"],
     "work-14": ["absence-of-fear", "action", "agency", "force", "illusion", "uncertainty", "wish"],
+    "work-15": ["persistence", "trust", "collective-emotion", "care", "action", "resistance", "embodiment", "resilience", "strategy", "fragility"],
 };
 
 const workMeta = {
@@ -30,4 +31,5 @@ const workMeta = {
     "work-12": { title: "unknown return to player", artist: "Lea Kristin Würtenberger", file: "work_descriptions/work-12.html" },
     "work-13": { title: "If My Land Were Flat, None of This Would Have Happened", artist: "Sara Karimi", file: "work_descriptions/work-13.html" },
     "work-14": { title: "SHELLS", artist: "Charlie Spies", file: "work_descriptions/work-14.html" },
+    "work-15": { title: "hope is a practice", artist: "Emilie Schmidt", file: "work_descriptions/work-15.html" },
 };
